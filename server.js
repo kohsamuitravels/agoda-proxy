@@ -3,12 +3,12 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000; // הפורט ש-Render מספק
+const port = process.env.PORT || 3000; // חובה להשתמש ב-process.env.PORT ב-Render
 
 app.use(cors());
 app.use(express.json());
 
-// מסלול לבדיקה אם השרת פועל
+// בדיקת חיבור לשרת
 app.get('/', (req, res) => {
     res.send('✅ Server is running on Render!');
 });
@@ -26,7 +26,7 @@ app.post('/proxy/hotels', async (req, res) => {
         });
         res.json(response.data);
     } catch (error) {
-        console.error('Error fetching hotels:', error.message);
+        console.error('❌ Error fetching hotels:', error.message);
         res.status(500).send('Error fetching hotels');
     }
 });
