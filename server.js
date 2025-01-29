@@ -13,7 +13,12 @@ app.get('/', (req, res) => {
     res.send('✅ Server is running on Render!');
 });
 
-// מסלול ה-Proxy של Agoda
+// מסלול GET רק לבדיקה (לא מבצע חיפוש באגודה)
+app.get('/proxy/hotels', (req, res) => {
+    res.send('🚀 This is the Agoda Proxy. Use POST requests to fetch hotel data.');
+});
+
+// מסלול ה-Proxy של Agoda (שימוש בבקשת `POST`)
 app.post('/proxy/hotels', async (req, res) => {
     const endpoint = 'https://affiliateapi7643.agoda.com/affiliateservice/lt_v1';
 
