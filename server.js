@@ -1,12 +1,22 @@
 const express = require('express');
 const axios = require('axios');
-const app = express();
-const port = 3000;
+const cors = require('cors');
 
+const app = express();
+const port = process.env.PORT || 3000; // הפורט ש-Render מספק
+
+app.use(cors());
 app.use(express.json());
 
+// מסלול לבדיקה אם השרת רץ
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+});
+
+// מסלול ה-Proxy של Agoda
 app.post('/proxy/hotels', async (req, res) => {
     const endpoint = 'https://affiliateapi7643.agoda.com/affiliateservice/lt_v1';
+
     try {
         const response = await axios.post(endpoint, req.body, {
             headers: {
@@ -21,6 +31,7 @@ app.post('/proxy/hotels', async (req, res) => {
     }
 });
 
+// הפעלת השרת
 app.listen(port, () => {
-    console.log(`Proxy server running at http://localhost:${port}`);
+    console.log(`Proxy server running on port ${port}`);
 });
