@@ -22,19 +22,24 @@ app.get('/proxy/hotels', (req, res) => {
 app.post('/proxy/hotels', async (req, res) => {
     const endpoint = 'https://affiliateapi7643.agoda.com/affiliateservice/lt_v1';
 
+    console.log("🔍 Received request:", req.body);
+
     try {
         const response = await axios.post(endpoint, req.body, {
             headers: {
-                'Authorization': 'Bearer 1930862:a9a5d74a-6015-4531-9a26-9833f483ab83',
+                'Authorization': `Bearer ${process.env.AGODA_API_KEY}`,  // שינוי בפורמט
                 'Content-Type': 'application/json'
             }
         });
+
+        console.log("✅ Agoda API Response:", response.data);
         res.json(response.data);
     } catch (error) {
         console.error('❌ Error fetching hotels:', error.message);
-        res.status(500).send('Error fetching hotels');
+        res.status(error.response?.status || 500).send(error.response?.data || 'Error fetching hotels');
     }
 });
+
 
 // הפעלת השרת
 app.listen(port, () => {
