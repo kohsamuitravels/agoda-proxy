@@ -8,9 +8,9 @@ const port = process.env.PORT || 3000; // הפורט ש-Render מספק
 app.use(cors());
 app.use(express.json());
 
-// מסלול לבדיקה אם השרת רץ
+// מסלול לבדיקה אם השרת פועל
 app.get('/', (req, res) => {
-    res.send('Server is running!');
+    res.send('✅ Server is running on Render!');
 });
 
 // מסלול ה-Proxy של Agoda
@@ -33,5 +33,5 @@ app.post('/proxy/hotels', async (req, res) => {
 
 // הפעלת השרת
 app.listen(port, () => {
-    console.log(`Proxy server running on port ${port}`);
+    console.log(`🚀 Proxy server running on port ${port}`);
 });
